@@ -1,133 +1,474 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COMINGSOON</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #4b6cb9, #182848);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
-        
-        .container {
-            max-width: 100%;
-            width: 90%;
-        }
-        
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-        
-        p {
-            font-size: 1rem;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-        
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 25px 0;
-            flex-wrap: wrap;
-        }
-        
-        .countdown-box {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 15px 10px;
-            min-width: 70px;
-        }
-        
-        .countdown-number {
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-        
-        .countdown-label {
-            font-size: 0.7rem;
-            opacity: 0.9;
-            text-transform: uppercase;
-        }
-        
-        .highlight {
-            color: #ffd;
-            font-weight: bold;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #white;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remove Background - Alat Penghapus Latar Belakang Gambar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    :root {
+      --primary: #4a6cf7;
+      --primary-dark: #3a5ae8;
+      --secondary: #f8f9fa;
+      --text: #333;
+      --text-light: #666;
+      --border: #ddd;
+      --success: #28a745;
+      --error: #dc3545;
+      --warning: #ffc107;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background-color: #f5f7ff;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    h1 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      font-size: 2.2rem;
+    }
+    
+    .subtitle {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .upload-area {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .upload-area:hover {
+      border-color: var(--primary);
+      background-color: rgba(74, 108, 247, 0.03);
+    }
+    
+    .upload-area i {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .upload-area p {
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    }
+    
+    #file-input {
+      display: none;
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .btn:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+    
+    .status {
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 1rem 0;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .status.loading {
+      background-color: rgba(255, 193, 7, 0.1);
+      color: var(--warning);
+    }
+    
+    .status.success {
+      background-color: rgba(40, 167, 69, 0.1);
+      color: var(--success);
+    }
+    
+    .status.error {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: var(--error);
+    }
+    
+    .result-container {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    
+    .result-image {
+      max-width: 100%;
+      max-height: 500px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin: 1rem 0;
+      display: none;
+    }
+    
+    .download-btn {
+      margin-top: 1rem;
+      display: none;
+    }
+    
+    .guide {
+      margin-top: 3rem;
+    }
+    
+    .guide h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    .guide ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .guide li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .feature {
+      flex: 1 1 200px;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+    
+    .feature i {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .captcha-container {
+      margin: 1.5rem 0;
+      display: flex;
+      justify-content: center;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1.5rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .card {
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">COMINGSOON</div>
-        <p>link sleksi citraq akan tersedia pada tanggal <span class="highlight">6 Juni 2025</span>.</p>
-        
-        <div class="countdown">
-            <div class="countdown-box">
-                <div class="countdown-number" id="days">00</div>
-                <div class="countdown-label">Hari</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-number" id="hours">00</div>
-                <div class="countdown-label">Jam</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-number" id="minutes">00</div>
-                <div class="countdown-label">Menit</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-number" id="seconds">00</div>
-                <div class="countdown-label">Detik</div>
-            </div>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-magic"></i> Remove Background</h1>
+      <p class="subtitle">Hapus latar belakang gambar secara otomatis dalam hitungan detik</p>
+    </header>
+    
+    <div class="card">
+      <div class="upload-area" id="upload-area">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <h3>Seret & Jatuhkan Gambar di Sini</h3>
+        <p>Atau klik untuk memilih file dari komputer Anda</p>
+        <p class="text-muted">Format yang didukung: JPG, PNG (Maksimal 5MB)</p>
+        <input type="file" id="file-input" accept="image/jpeg, image/png">
+        <button class="btn" id="browse-btn">Pilih Gambar</button>
+      </div>
+      
+      <div class="captcha-container">
+        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-callback="onCaptchaVerified"></div>
+      </div>
+      
+      <button class="btn btn-block" id="process-btn" disabled>
+        <i class="fas fa-spinner fa-spin" id="spinner" style="display: none;"></i>
+        <span id="btn-text">Hapus Latar Belakang</span>
+      </button>
+      
+      <div id="status" class="status" style="display: none;"></div>
+      
+      <div class="result-container">
+        <img id="result-image" class="result-image" alt="Hasil Remove Background">
+        <a id="download-btn" class="btn download-btn" download="no-background.png">
+          <i class="fas fa-download"></i> Download Gambar
+        </a>
+      </div>
+    </div>
+    
+    <div class="guide">
+      <h2><i class="fas fa-book"></i> Panduan Penggunaan</h2>
+      <ol>
+        <li>Klik tombol "Pilih Gambar" atau seret gambar ke area upload</li>
+        <li>Pastikan gambar yang diupload jelas dan objek utama terlihat baik</li>
+        <li>Selesaikan verifikasi CAPTCHA untuk membuktikan Anda bukan robot</li>
+        <li>Klik tombol "Hapus Latar Belakang" untuk memproses gambar</li>
+        <li>Tunggu beberapa saat hingga proses selesai (tergantung ukuran gambar)</li>
+        <li>Download hasil gambar dengan latar belakang transparan</li>
+      </ol>
+      
+      <h2><i class="fas fa-star"></i> Fitur Unggulan</h2>
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-bolt"></i>
+          <h3>Cepat</h3>
+          <p>Proses penghapusan latar belakang hanya dalam beberapa detik</p>
         </div>
+        <div class="feature">
+          <i class="fas fa-lock"></i>
+          <h3>Aman</h3>
+          <p>Gambar Anda diproses secara aman dan tidak disimpan di server kami</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-image"></i>
+          <h3>Berkualitas</h3>
+          <p>Hasil dengan kualitas tinggi dan tepian yang presisi</p>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      <p>&copy; 2023 Remove Background Tool. All rights reserved.</p>
+    </footer>
+  </div>
 
-    <script>
-        // Tanggal target: 6 Juni 2025
-        const targetDate = new Date("June 6, 2025 00:00:00").getTime();
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Elements
+      const fileInput = document.getElementById('file-input');
+      const uploadArea = document.getElementById('upload-area');
+      const browseBtn = document.getElementById('browse-btn');
+      const processBtn = document.getElementById('process-btn');
+      const statusEl = document.getElementById('status');
+      const resultImage = document.getElementById('result-image');
+      const downloadBtn = document.getElementById('download-btn');
+      const spinner = document.getElementById('spinner');
+      const btnText = document.getElementById('btn-text');
+      
+      // Variables
+      let selectedFile = null;
+      let isCaptchaVerified = false;
+      
+      // Event Listeners
+      browseBtn.addEventListener('click', () => fileInput.click());
+      
+      uploadArea.addEventListener('click', () => fileInput.click());
+      
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.style.borderColor = 'var(--primary)';
+        uploadArea.style.backgroundColor = 'rgba(74, 108, 247, 0.05)';
+      });
+      
+      uploadArea.addEventListener('dragleave', () => {
+        uploadArea.style.borderColor = 'var(--border)';
+        uploadArea.style.backgroundColor = 'transparent';
+      });
+      
+      uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.style.borderColor = 'var(--border)';
+        uploadArea.style.backgroundColor = 'transparent';
         
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-            
-            // Hitung waktu
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            // Tampilkan hasil
-            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
-            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
-            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
-            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
-            
-            // Jika waktu habis
-            if (distance < 0) {
-                clearInterval(countdownTimer);
-                document.querySelector(".countdown").style.display = "none";
-            }
+        if (e.dataTransfer.files.length) {
+          handleFileSelection(e.dataTransfer.files[0]);
+        }
+      });
+      
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files.length) {
+          handleFileSelection(fileInput.files[0]);
+        }
+      });
+      
+      processBtn.addEventListener('click', async () => {
+        await removeBackground();
+      });
+      
+      // CAPTCHA callback
+      window.onCaptchaVerified = function() {
+        isCaptchaVerified = true;
+        if (selectedFile) {
+          processBtn.disabled = false;
+        }
+      };
+      
+      // Functions
+      function handleFileSelection(file) {
+        // Check file type
+        if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+          showStatus('⚠️ Hanya file JPG/PNG yang didukung', 'error');
+          return;
         }
         
-        // Update setiap detik
-        const countdownTimer = setInterval(updateCountdown, 1000);
-        updateCountdown(); // Panggil sekali langsung
-    </script>
+        // Check file size (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+          showStatus('⚠️ Ukuran file maksimal 5MB', 'error');
+          return;
+        }
+        
+        selectedFile = file;
+        
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          resultImage.src = e.target.result;
+          resultImage.style.display = 'block';
+          downloadBtn.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+        
+        // Enable process button if CAPTCHA is verified
+        if (isCaptchaVerified) {
+          processBtn.disabled = false;
+        }
+        
+        showStatus(`✅ ${file.name} siap diproses`, 'success');
+      }
+      
+      function showStatus(message, type) {
+        statusEl.textContent = message;
+        statusEl.className = 'status ' + type;
+        statusEl.style.display = 'block';
+      }
+      
+      async function removeBackground() {
+        // Verify CAPTCHA first
+        if (!isCaptchaVerified) {
+          showStatus('⚠️ Harap verifikasi bahwa Anda bukan robot', 'error');
+          return;
+        }
+        
+        if (!selectedFile) {
+          showStatus('⚠️ Silakan pilih gambar terlebih dahulu', 'error');
+          return;
+        }
+        
+        // Show loading state
+        spinner.style.display = 'inline-block';
+        btnText.textContent = 'Memproses...';
+        processBtn.disabled = true;
+        showStatus('⏳ Sedang memproses gambar, harap tunggu...', 'loading');
+        
+        const formData = new FormData();
+        formData.append('format', 'png');
+        formData.append('model', 'v1');
+        formData.append('image', selectedFile);
+        
+        try {
+          const res = await fetch('https://api2.pixelcut.app/image/matte/v1', {
+            method: 'POST',
+            headers: {
+              'x-client-version': 'web'
+            },
+            body: formData
+          });
+          
+          if (!res.ok) throw new Error('Gagal menghapus background');
+          
+          const blob = await res.blob();
+          const imageUrl = URL.createObjectURL(blob);
+          
+          // Show result
+          resultImage.src = imageUrl;
+          downloadBtn.href = imageUrl;
+          downloadBtn.style.display = 'inline-block';
+          
+          showStatus('✅ Latar belakang berhasil dihapus!', 'success');
+        } catch (err) {
+          console.error(err);
+          showStatus('❌ Terjadi kesalahan saat memproses gambar', 'error');
+        } finally {
+          // Reset button state
+          spinner.style.display = 'none';
+          btnText.textContent = 'Hapus Latar Belakang';
+          processBtn.disabled = false;
+        }
+      }
+    });
+  </script>
 </body>
 </html>
