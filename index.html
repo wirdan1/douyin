@@ -3,87 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Remove Background - Alat Penghapus Latar Belakang Gambar</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Remove Background</title>
   <link rel="icon" type="image/x-icon" href="https://qu.ax/NeSzd.jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #4a6cf7;
-      --primary-dark: #3a5ae8;
-      --secondary: #f8f9fa;
-      --text: #2c3e50;
-      --text-light: #7f8c8d;
-      --border: #e1e8ed;
-      --success: #27ae60;
-      --error: #e74c3c;
-      --warning: #f39c12;
-      --shadow: 0 10px 30px rgba(0,0,0,0.1);
-      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background: var(--gradient);
+      font-family: 'Poppins', sans-serif;
+      background: #f7fafc;
+      color: #2d3748;
       min-height: 100vh;
-      padding: 1rem 0;
+      padding: 15px;
+      overflow-x: hidden;
     }
     
     .container {
-      max-width: 1100px;
+      max-width: 380px;
       margin: 0 auto;
-      padding: 0 1.5rem;
     }
     
     header {
       text-align: center;
-      margin-bottom: 3rem;
-      padding: 2.5rem 2rem;
-      background: rgba(255,255,255,0.95);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      padding: 30px 20px;
+      background: white;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      animation: slideInDown 0.8s ease-out;
     }
     
     h1 {
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-      font-size: 2.8rem;
+      font-size: 26px;
       font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 5px;
+    }
+    
+    h1 i { 
+      margin-right: 10px;
+      animation: bounceIn 1s ease-out;
     }
     
     .subtitle {
-      color: var(--text-light);
-      font-size: 1.2rem;
-      margin-bottom: 0;
+      color: #718096;
+      font-size: 14px;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
     }
     
     .card {
-      background: rgba(255,255,255,0.95);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      padding: 2.5rem;
-      margin-bottom: 2.5rem;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      animation: slideInUp 0.8s ease-out;
     }
     
     .upload-area {
-      border: 3px dashed var(--border);
-      border-radius: 15px;
-      padding: 3rem 2rem;
+      border: 2px dashed #e2e8f0;
+      border-radius: 12px;
+      padding: 50px 20px;
       text-align: center;
-      margin-bottom: 2rem;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
-      background: linear-gradient(145deg, #ffffff, #f0f2ff);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-bottom: 20px;
       position: relative;
       overflow: hidden;
     }
@@ -95,434 +82,509 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(74,108,247,0.05), transparent);
-      transition: left 0.5s;
+      background: linear-gradient(90deg, transparent, rgba(102,126,234,0.1), transparent);
+      transition: left 0.6s;
     }
     
-    .upload-area:hover::before {
-      left: 100%;
-    }
+    .upload-area:hover::before { left: 100%; }
     
     .upload-area:hover {
-      border-color: var(--primary);
-      background: linear-gradient(145deg, #f8faff, #e8ecff);
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(74,108,247,0.15);
+      border-color: #667eea;
+      background: #f8faff;
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(102,126,234,0.15);
     }
     
     .upload-area i {
-      font-size: 4rem;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
+      font-size: 50px;
+      color: #667eea;
+      margin-bottom: 15px;
       display: block;
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
     }
     
     .upload-area h3 {
-      font-size: 1.5rem;
-      color: var(--text);
-      margin-bottom: 1rem;
+      font-size: 18px;
       font-weight: 600;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
     }
+    
+    .upload-area:hover h3 { color: #667eea; }
     
     .upload-area p {
-      color: var(--text-light);
-      margin-bottom: 0.5rem;
+      color: #718096;
+      font-size: 14px;
+      margin-bottom: 4px;
     }
     
-    .upload-area .text-muted {
-      font-size: 0.9rem;
-      color: #95a5a6 !important;
+    .upload-area .small {
+      font-size: 12px;
+      color: #a0aec0;
     }
     
     #file-input { display: none; }
     
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--gradient);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      padding: 1rem 2rem;
       border: none;
+      padding: 15px 25px;
       border-radius: 12px;
-      font-size: 1.1rem;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 500;
       cursor: pointer;
+      width: 100%;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-decoration: none;
-      box-shadow: 0 5px 15px rgba(74,108,247,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
     }
     
-    .btn:hover {
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn:hover::before { left: 100%; }
+    
+    .btn:hover:not(:disabled) {
       transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(74,108,247,0.4);
+      box-shadow: 0 12px 35px rgba(102,126,234,0.4);
+    }
+    
+    .btn:active:not(:disabled) {
+      transform: translateY(-1px);
     }
     
     .btn:disabled {
-      background: #bdc3c7;
+      background: #cbd5e0;
       cursor: not-allowed;
       transform: none;
-      box-shadow: none;
     }
     
-    .btn-block { width: 100%; justify-content: center; }
+    #spinner {
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
     
     .status {
-      padding: 1.2rem;
+      padding: 12px 16px;
       border-radius: 12px;
-      margin: 1.5rem 0;
       text-align: center;
-      font-weight: 600;
-      font-size: 1rem;
-      backdrop-filter: blur(10px);
+      font-weight: 500;
+      margin: 15px 0;
+      display: none;
+      font-size: 14px;
+      animation: fadeInScale 0.4s ease-out;
     }
     
-    .status.loading { 
-      background: rgba(243,156,18,0.1); 
-      color: var(--warning);
-      border: 1px solid rgba(243,156,18,0.2);
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
     
-    .status.success { 
-      background: rgba(39,174,96,0.1); 
-      color: var(--success);
-      border: 1px solid rgba(39,174,96,0.2);
+    .status.success { background: #c6f6d5; color: #22543d; }
+    .status.loading { background: #bee3f8; color: #2c5282; }
+    .status.error { background: #fed7d7; color: #c53030; }
+    
+    .image-container {
+      text-align: center;
+      margin: 20px 0;
+      animation: fadeInUp 0.6s ease-out;
     }
     
-    .status.error { 
-      background: rgba(231,76,60,0.1); 
-      color: var(--error);
-      border: 1px solid rgba(231,76,60,0.2);
+    .preview-image, .result-image {
+      max-width: 100%;
+      max-height: 350px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      display: none;
+      margin: 0 auto;
+      transition: all 0.4s ease;
     }
     
-    /* ✅ FIXED: Checkerboard hanya di result area */
+    .preview-image:hover, .result-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+    
+    /* ✅ CHECKERBOARD SIMPEL - NO SIZE BUG! */
     .checkerboard {
+      display: none;
+      animation: slideInUp 0.6s ease-out;
+      margin: 20px 0;
+      text-align: center;
+      padding: 20px;
       background: 
         linear-gradient(45deg, #f0f0f0 25%, transparent 25%),
         linear-gradient(-45deg, #f0f0f0 25%, transparent 25%),
         linear-gradient(45deg, transparent 75%, #f0f0f0 75%),
         linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-      padding: 2rem;
-      border-radius: 15px;
-      margin: 2rem 0;
-      display: none;
-    }
-    
-    .result-container {
-      text-align: center;
-    }
-    
-    .result-image, .preview-image {
-      max-width: 100%;
-      max-height: 500px;
+      background-size: 16px 16px;
       border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      margin: 1rem 0;
     }
     
     .download-btn {
-      margin-top: 1.5rem;
-      display: none;
-      font-size: 1.2rem;
-      padding: 1.2rem 2.5rem;
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      margin-top: 15px;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 12px 35px rgba(72,187,120,0.4); }
+      50% { box-shadow: 0 12px 35px rgba(72,187,120,0.6); }
     }
     
     .guide {
-      margin-top: 4rem;
+      margin-top: 30px;
+      animation: slideInUp 0.8s ease-out 0.3s both;
     }
     
     .guide h2 {
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
       text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #4a5568;
+      animation: fadeInUp 0.6s ease-out;
     }
     
+    .guide h2 i { margin-right: 8px; color: #667eea; }
+    
     .guide ol {
-      padding-left: 2rem;
-      margin-bottom: 2rem;
-      background: rgba(255,255,255,0.5);
-      padding: 2rem;
-      border-radius: 15px;
+      list-style: none;
+      padding: 0;
     }
     
     .guide li {
-      margin-bottom: 0.8rem;
-      font-size: 1.1rem;
+      padding: 12px;
+      margin-bottom: 8px;
+      background: #edf2f7;
+      border-radius: 8px;
+      font-size: 14px;
+      animation: slideInLeft 0.6s ease-out;
+      transition: all 0.3s ease;
+    }
+    
+    .guide li:hover {
+      background: #e2e8f0;
+      transform: translateX(5px);
     }
     
     .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
     }
     
     .feature {
-      background: rgba(255,255,255,0.9);
-      padding: 2rem;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: slideInUp 0.6s ease-out;
     }
     
     .feature:hover {
-      transform: translateY(-5px);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(102,126,234,0.15);
     }
     
     .feature i {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
+      font-size: 20px;
+      color: #667eea;
+      width: 24px;
+      transition: transform 0.3s ease;
     }
     
-    .feature h3 {
-      color: var(--text);
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
+    .feature:hover i { transform: scale(1.1); }
+    
+    .feature-text h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    
+    .feature-text p {
+      font-size: 13px;
+      color: #718096;
     }
     
     footer {
       text-align: center;
-      margin-top: 4rem;
-      padding: 2rem;
-      color: rgba(255,255,255,0.9);
-      font-size: 1rem;
-      background: rgba(0,0,0,0.1);
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
+      padding: 20px;
+      color: #a0aec0;
+      font-size: 12px;
+      animation: fadeInUp 1s ease-out 0.5s both;
     }
     
-    @media (max-width: 768px) {
-      .container { padding: 0 1rem; }
-      .card { padding: 1.5rem; }
-      h1 { font-size: 2.2rem; }
-      .upload-area { padding: 2rem 1rem; }
-      .features { grid-template-columns: 1fr; }
+    @keyframes slideInDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes slideInUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes slideInLeft {
+      from { transform: translateX(-20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes bounceIn {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    @media (max-width: 400px) {
+      .container { padding: 10px; }
+      .card { padding: 20px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1><i class="fas fa-magic"></i> Remove Background</h1>
-      <p class="subtitle">Hapus latar belakang gambar secara otomatis dalam hitungan detik</p>
+      <h1><i class="fas fa-magic"></i> Remove BG</h1>
+      <p class="subtitle">Hapus background dalam 3 detik</p>
     </header>
     
     <div class="card">
-      <div class="upload-area" id="upload-area">
+      <div class="upload-area" id="uploadArea">
         <i class="fas fa-cloud-upload-alt"></i>
-        <h3>Seret & Jatuhkan Gambar di Sini</h3>
-        <p>Atau klik untuk memilih file dari komputer Anda</p>
-        <p class="text-muted">Format yang didukung: JPG, PNG (Maksimal 5MB)</p>
-        <input type="file" id="file-input" accept="image/jpeg, image/png">
-        <button class="btn" id="browse-btn">Pilih Gambar</button>
+        <h3>Klik atau Drag Gambar</h3>
+        <p>JPG, PNG • Max 5MB</p>
+        <p class="small">Hasil transparan otomatis</p>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png">
       </div>
       
-      <button class="btn btn-block" id="process-btn">
-        <i class="fas fa-spinner fa-spin" id="spinner" style="display: none;"></i>
-        <span id="btn-text">Hapus Latar Belakang</span>
+      <button class="btn" id="processBtn" disabled>
+        <i class="fas fa-spinner fa-spin" id="spinner" style="display:none"></i>
+        <span id="btnText">Hapus Background</span>
       </button>
       
-      <div id="status" class="status" style="display: none;"></div>
+      <div id="status" class="status"></div>
       
-      <div class="result-container">
-        <img id="preview-image" class="preview-image" alt="Preview Gambar" style="display: none;">
+      <div class="image-container">
+        <img id="previewImg" class="preview-image" alt="Preview">
       </div>
       
       <div class="checkerboard" id="checkerboard">
-        <div class="result-container">
-          <img id="result-image" class="result-image" alt="Hasil Remove Background">
-          <a id="download-btn" class="btn download-btn">
-            <i class="fas fa-download"></i> Download Gambar
+        <div class="image-container">
+          <img id="resultImg" class="result-image" alt="Result">
+          <a id="downloadBtn" class="btn download-btn" style="display:none">
+            <i class="fas fa-download"></i> Download
           </a>
         </div>
       </div>
     </div>
     
     <div class="guide">
-      <h2><i class="fas fa-book"></i> Panduan Penggunaan</h2>
+      <h2><i class="fas fa-lightbulb"></i> Cara Pakai</h2>
       <ol>
-        <li>Klik tombol "Pilih Gambar" atau seret gambar ke area upload</li>
-        <li>Pastikan gambar yang diupload jelas dan objek utama terlihat baik</li>
-        <li>Klik tombol "Hapus Latar Belakang" untuk memproses gambar</li>
-        <li>Tunggu beberapa saat hingga proses selesai</li>
-        <li>Download hasil gambar dengan latar belakang transparan</li>
+        <li>Klik "Pilih Gambar"</li>
+        <li>Tunggu 3 detik proses</li>
+        <li>Download hasil transparan</li>
       </ol>
       
-      <h2><i class="fas fa-star"></i> Fitur Unggulan</h2>
+      <h2><i class="fas fa-crown"></i> Kenapa Pilih Ini?</h2>
       <div class="features">
         <div class="feature">
           <i class="fas fa-bolt"></i>
-          <h3>Cepat</h3>
-          <p>Proses hanya dalam 3-5 detik</p>
+          <div class="feature-text">
+            <h3>Super Cepat</h3>
+            <p>3 detik selesai</p>
+          </div>
         </div>
         <div class="feature">
-          <i class="fas fa-lock"></i>
-          <h3>Aman</h3>
-          <p>Gambar tidak disimpan di server</p>
+          <i class="fas fa-shield-alt"></i>
+          <div class="feature-text">
+            <h3>100% Aman</h3>
+            <p>Gak disimpan server</p>
+          </div>
         </div>
         <div class="feature">
-          <i class="fas fa-image"></i>
-          <h3>Presisi</h3>
-          <p>Tepi halus & kualitas HD</p>
+          <i class="fas fa-hd-desktop"></i>
+          <div class="feature-text">
+            <h3>Kualitas HD</h3>
+            <p>Tepi halus presisi</p>
+          </div>
         </div>
       </div>
     </div>
     
-    <footer>
-      <p>&copy; 2025 Remove Background Tools || Created by Danz-dev</p>
-    </footer>
+    <footer>© 2025 Danz-dev • Made with care</footer>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      /* 🎵 SOUND KLIK INSTAN - NO DELAY! ⚡ */
-      let clickSound = new Audio('effect.mp3');
-      clickSound.preload = 'auto';
-      
-      const fileInput = document.getElementById('file-input');
-      const uploadArea = document.getElementById('upload-area');
-      const browseBtn = document.getElementById('browse-btn');
-      const processBtn = document.getElementById('process-btn');
-      const statusEl = document.getElementById('status');
-      const previewImage = document.getElementById('preview-image');
-      const resultImage = document.getElementById('result-image');
-      const downloadBtn = document.getElementById('download-btn');
-      const checkerboard = document.getElementById('checkerboard');
-      const spinner = document.getElementById('spinner');
-      const btnText = document.getElementById('btn-text');
-      
-      let selectedFile = null;
-      let currentBlobUrl = null;
-      
-      // 🎵 SOUND UNTUK SEMUA BUTTON
-      document.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          clickSound.currentTime = 0;
-          clickSound.play(); // CIK! ⚡
-        });
+    let clickSound = new Audio('effect.mp3');
+    clickSound.preload = 'auto';
+    
+    const fileInput = document.getElementById('fileInput');
+    const uploadArea = document.getElementById('uploadArea');
+    const processBtn = document.getElementById('processBtn');
+    const status = document.getElementById('status');
+    const previewImg = document.getElementById('previewImg');
+    const resultImg = document.getElementById('resultImg');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const checkerboard = document.getElementById('checkerboard');
+    const spinner = document.getElementById('spinner');
+    const btnText = document.getElementById('btnText');
+    
+    let selectedFile = null;
+    let currentUrl = null;
+    
+    // 🔊 SOUND EFFECT ON ALL BUTTONS
+    document.querySelectorAll('button, .upload-area').forEach(el => {
+      el.addEventListener('click', () => {
+        clickSound.currentTime = 0;
+        clickSound.play().catch(() => {});
       });
+    });
+    
+    // CLICK UPLOAD
+    uploadArea.addEventListener('click', () => fileInput.click());
+    
+    // DRAG DROP
+    uploadArea.addEventListener('dragover', e => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#667eea';
+    });
+    
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.style.borderColor = '#e2e8f0';
+    });
+    
+    uploadArea.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#e2e8f0';
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    });
+    
+    // FILE SELECT - BUG KILLER!
+    fileInput.addEventListener('change', e => {
+      if (e.target.files[0]) {
+        handleFile(e.target.files[0]);
+        e.target.value = '';
+      }
+    });
+    
+    function handleFile(file) {
+      if (!file.type.startsWith('image/') || file.size > 5e6) {
+        showStatus('JPG/PNG max 5MB', 'error');
+        return;
+      }
       
-      // Events
-      browseBtn.addEventListener('click', () => fileInput.click());
-      uploadArea.addEventListener('click', () => fileInput.click());
+      selectedFile = file;
+      processBtn.disabled = false;
       
-      uploadArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadArea.style.borderColor = 'var(--primary)';
-      });
-      
-      uploadArea.addEventListener('dragleave', (e) => {
-        if (!uploadArea.contains(e.relatedTarget)) {
-          uploadArea.style.borderColor = 'var(--border)';
-        }
-      });
-      
-      uploadArea.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadArea.style.borderColor = 'var(--border)';
-        if (e.dataTransfer.files.length) {
-          handleFileSelection(e.dataTransfer.files[0]);
-        }
-      });
-      
-      fileInput.addEventListener('change', (e) => {
-        // ✅ FIXED: Pastikan hanya ambil file pertama 
-        if (e.target.files.length) {
-          const file = e.target.files[0];
-          handleFileSelection(file);
-          // ✅ FIXED: HAPUS BARIS INI! fileInput.value = ''; → 1 KLIK UPLOAD!
-        }
-      });
-      
-      processBtn.addEventListener('click', async () => {
-        await removeBackground();
-      });
-      
-      function handleFileSelection(file) {
-        if (!file || (!file.type.match('image/jpeg') && !file.type.match('image/png'))) {
-          showStatus('⚠️ Hanya JPG/PNG yang didukung', 'error');
-          return;
-        }
-        
-        if (file.size > 5 * 1024 * 1024) {
-          showStatus('⚠️ Maksimal 5MB', 'error');
-          return;
-        }
-        
-        selectedFile = file;
-        processBtn.disabled = false;
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          previewImage.src = e.target.result;
-          previewImage.style.display = 'block';
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewImg.src = e.target.result;
+        previewImg.style.display = 'block';
+        previewImg.onload = () => { // ✅ WAIT LOAD!
           checkerboard.style.display = 'none';
           downloadBtn.style.display = 'none';
         };
-        reader.readAsDataURL(file);
-        
-        showStatus(`✅ ${file.name} siap diproses`, 'success');
-      }
+      };
+      reader.readAsDataURL(file);
       
-      function showStatus(message, type) {
-        statusEl.textContent = message;
-        statusEl.className = `status ${type}`;
-        statusEl.style.display = 'block';
-      }
+      showStatus(`Ready: ${file.name}`, 'success');
+    }
+    
+    processBtn.addEventListener('click', removeBg);
+    
+    async function removeBg() {
+      if (!selectedFile) return;
       
-      async function removeBackground() {
-        if (!selectedFile) {
-          showStatus('⚠️ Pilih gambar dulu', 'error');
-          return;
-        }
+      spinner.style.display = 'inline';
+      btnText.textContent = 'Processing...';
+      processBtn.disabled = true;
+      showStatus('Removing background...', 'loading');
+      
+      // ✅ SIMPLE SHOW - NO SIZE BUG!
+      previewImg.style.display = 'none';
+      checkerboard.style.display = 'block';
+      resultImg.style.display = 'none';
+      
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+      formData.append('format', 'png');
+      
+      try {
+        const res = await fetch('https://api2.pixelcut.app/image/matte/v1', {
+          method: 'POST',
+          headers: { 'x-client-version': 'web' },
+          body: formData
+        });
         
-        spinner.style.display = 'inline-block';
-        btnText.textContent = 'Memproses...';
-        processBtn.disabled = true;
-        showStatus('⏳ Memproses gambar...', 'loading');
+        if (!res.ok) throw new Error('API Error');
         
-        const formData = new FormData();
-        formData.append('format', 'png');
-        formData.append('model', 'v1');
-        formData.append('image', selectedFile);
+        const blob = await res.blob();
+        if (currentUrl) URL.revokeObjectURL(currentUrl);
+        currentUrl = URL.createObjectURL(blob);
         
-        try {
-          const res = await fetch('https://api2.pixelcut.app/image/matte/v1', {
-            method: 'POST',
-            headers: { 'x-client-version': 'web' },
-            body: formData
-          });
-          
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          
-          const blob = await res.blob();
-          if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
-          currentBlobUrl = URL.createObjectURL(blob);
-          
-          const originalName = selectedFile.name.replace(/\.[^/.]+$/, '');
-          downloadBtn.download = `${originalName}-no-bg.png`;
-          downloadBtn.href = currentBlobUrl;
-          
-          resultImage.src = currentBlobUrl;
-          checkerboard.style.display = 'block';
-          downloadBtn.style.display = 'inline-block';
-          
-          showStatus('✅ Background berhasil dihapus!', 'success');
-        } catch (err) {
-          console.error(err);
-          showStatus('❌ Error: Coba lagi atau periksa koneksi', 'error');
-        } finally {
-          spinner.style.display = 'none';
-          btnText.textContent = 'Hapus Latar Belakang';
-          processBtn.disabled = false;
-        }
+        // ✅ FORCE SHOW RESULT!
+        resultImg.src = currentUrl;
+        resultImg.style.display = 'block';
+        resultImg.onload = () => {
+          downloadBtn.href = currentUrl;
+          downloadBtn.download = selectedFile.name.replace(/\.[^/.]+$/, '') + '-no-bg.png';
+          downloadBtn.style.display = 'flex';
+          showStatus('Done! Download now', 'success');
+        };
+        
+      } catch (e) {
+        showStatus('Connection error, try again', 'error');
+        previewImg.style.display = 'block';
+        checkerboard.style.display = 'none';
+      } finally {
+        spinner.style.display = 'none';
+        btnText.textContent = 'Hapus Background';
+        processBtn.disabled = false;
       }
-    });
+    }
+    
+    function showStatus(msg, type) {
+      status.textContent = msg;
+      status.className = `status ${type}`;
+      status.style.display = 'block';
+      setTimeout(() => status.style.display = 'none', 3000);
+    }
   </script>
 </body>
 </html>
